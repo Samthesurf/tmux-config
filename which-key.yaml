@@ -1,0 +1,190 @@
+# ================================================================
+#  tmux-which-key  —  press Ctrl-a Space to open
+#  Vim-style discoverability. No memorization.
+# ================================================================
+
+command_alias_start_index: 200
+
+keybindings:
+  prefix_table: Space
+  root_table: C-Space
+
+title:
+  style: "align=centre,bold,fg=cyan"
+  prefix: "tmux"
+  prefix_style: "fg=green,align=centre,bold"
+
+position:
+  x: R
+  y: P
+
+custom_variables: []
+
+macros:
+  - name: reload-config
+    commands:
+      - 'source-file ~/.tmux.conf'
+      - 'display "Config reloaded"'
+
+items:
+
+  # ═══════════════ PANES ═══════════════
+  - name: "+Panes"
+    key: p
+    menu:
+      - name: Split vertical
+        key: "|"
+        command: 'split-window -h -c "#{pane_current_path}"'
+      - name: Split horizontal
+        key: "-"
+        command: 'split-window -v -c "#{pane_current_path}"'
+      - separator: true
+      - name: Navigate left
+        key: h
+        command: select-pane -L
+      - name: Navigate down
+        key: j
+        command: select-pane -D
+      - name: Navigate up
+        key: k
+        command: select-pane -U
+      - name: Navigate right
+        key: l
+        command: select-pane -R
+      - separator: true
+      - name: Resize left
+        key: H
+        command: resize-pane -L 5
+      - name: Resize down
+        key: J
+        command: resize-pane -D 5
+      - name: Resize up
+        key: K
+        command: resize-pane -U 5
+      - name: Resize right
+        key: L
+        command: resize-pane -R 5
+      - separator: true
+      - name: Zoom toggle
+        key: z
+        command: resize-pane -Z
+      - name: Kill pane
+        key: x
+        command: kill-pane
+      - name: Last pane
+        key: ";"
+        command: last-pane
+      - name: Break pane
+        key: "!"
+        command: break-pane
+
+  # ═══════════════ WINDOWS ═══════════════
+  - name: "+Windows"
+    key: w
+    menu:
+      - name: New window
+        key: c
+        command: 'new-window -c "#{pane_current_path}"'
+      - name: Last window
+        key: Tab
+        command: last-window
+      - name: Previous
+        key: p
+        command: previous-window
+      - name: Next
+        key: n
+        command: next-window
+      - separator: true
+      - name: Kill window
+        key: X
+        command: kill-window
+      - name: Rename window
+        key: ","
+        command: 'command-prompt -I "#W" "rename-window -- \"%%\""'
+      - name: Choose window
+        key: f
+        command: choose-tree -Zw
+      - separator: true
+      - name: "Window 1..9"
+        key: "1"
+        command: 'display "Alt+1..9 to jump"'
+
+  # ═══════════════ SESSIONS ═══════════════
+  - name: "+Sessions"
+    key: s
+    menu:
+      - name: Detach
+        key: d
+        command: detach-client
+      - name: Choose session
+        key: s
+        command: choose-tree -Zs
+      - name: Rename session
+        key: "$"
+        command: 'command-prompt -I "#S" "rename-session -- \"%%\""'
+      - separator: true
+      - name: Previous session
+        key: "("
+        command: switch-client -p
+      - name: Next session
+        key: ")"
+        command: switch-client -n
+
+  # ═══════════════ COPY / PASTE ═══════════════
+  - name: "+Copy"
+    key: y
+    menu:
+      - name: Enter copy mode
+        key: "["
+        command: copy-mode
+      - name: Paste buffer
+        key: "]"
+        command: paste-buffer
+      - separator: true
+      - name: List buffers
+        key: "#"
+        command: list-buffers
+      - name: Choose buffer
+        key: "="
+        command: choose-buffer -Z
+      - name: Save buffer
+        key: s
+        command: 'command-prompt -p "(save to file)" "save-buffer -- \"%%\""'
+
+  # ═══════════════ CONFIG / HELP ═══════════════
+  - separator: true
+  - name: "+Config"
+    key: C
+    menu:
+      - name: Reload config
+        key: r
+        macro: reload-config
+      - name: Customize mode
+        key: ","
+        command: customize-mode -Z
+      - separator: true
+      - name: Show messages
+        key: "~"
+        command: show-messages
+      - name: List all keys
+        key: "?"
+        command: list-keys -N
+      - separator: true
+      - name: Install plugins
+        key: I
+        command: 'run-shell "~/.tmux/plugins/tpm/bin/install_plugins"'
+      - name: Update plugins
+        key: U
+        command: 'run-shell "~/.tmux/plugins/tpm/bin/update_plugins"'
+
+  # ═══════════════ QUICK ACTIONS ═══════════════
+  - separator: true
+  - name: Clock
+    key: t
+    command: clock-mode
+  - name: Display panes
+    key: q
+    command: display-panes
+  - name: Sync panes
+    key: S
+    command: 'setw synchronize-panes'
