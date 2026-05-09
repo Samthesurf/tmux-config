@@ -85,3 +85,23 @@ cd tmux-config
 | `which-key.yaml` | Menu definition for visual keybinding display |
 | `ghostty-terminfo.ti` | Ghostty terminal capabilities (for SSH remotes) |
 | `install.sh` | One-command deployment script |
+
+## What the installer does
+
+1. Installs tmux via apt/dnf/pacman/brew (auto-detects your OS)
+2. Installs Ghostty terminfo — no more "unsuitable terminal: xterm-ghostty"
+3. Clones TPM (Tmux Plugin Manager)
+4. Deploys `tmux.conf` to `~/.tmux.conf` (backs up existing)
+5. Deploys which-key config for the visual menu
+6. Installs `tmux-which-key` and `vim-tmux-navigator` plugins
+
+## After install
+
+```bash
+tmux new -s main      # Start a session
+tmux attach -t main   # Reattach after disconnect
+
+# Inside tmux:
+Ctrl-a Space           # See ALL keybindings — no memorization
+Ctrl-a r               # Reload config after changes
+```
