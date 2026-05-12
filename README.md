@@ -105,3 +105,22 @@ tmux attach -t main   # Reattach after disconnect
 Ctrl-a Space           # See ALL keybindings — no memorization
 Ctrl-a r               # Reload config after changes
 ```
+
+## Status Bar Design
+
+The status bar uses the **Kanagawa** color palette — inspired by Hokusai's Great Wave. Pill-style segments with harmonious colors:
+
+| Element | Color | Hex |
+|---------|-------|-----|
+| Background | Ink | `#1f1f28` |
+| Session | Spring Violet | `#957fb8` |
+| Active Window | Autumn Red | `#c34043` |
+| Inactive Window | Ink 3 | `#363646` |
+| Prefix | Carp Yellow | `#e6c384` |
+| Which-Key | Surimi Orange | `#ffa066` |
+| Time | Spring Blue | `#7fb4ca` |
+| Date | Autumn Green | `#76946a` |
+
+The bar displays: session name | windows | `C-a` prefix | `C-Space` which-key | time | date
+
+No memorization needed — every shortcut is visible at a glance.
